@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="DonghuaHub — discover Chinese animation, episode guides and authorized video embeds.">
+<title>DonghuaHub — Watch & Discover Donghua</title>
+<style>
+:root{--bg:#080a0f;--panel:#11151d;--panel2:#171c25;--line:#272e3a;--text:#f5f7fb;--muted:#9aa4b3;--accent:#ff6b18;--accent2:#ff9d4d}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.container{max-width:1180px;margin:auto;padding:0 18px}
+header{position:sticky;top:0;z-index:20;background:rgba(8,10,15,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{height:66px;display:flex;align-items:center;gap:24px}.logo{font-size:22px;font-weight:900;color:var(--accent);letter-spacing:-.5px}.navlinks{display:flex;gap:18px}.navlinks button{background:none;border:0;color:#cbd2dd}.search{margin-left:auto;width:260px;background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:10px 12px;color:white;outline:none}
+.hero{margin-top:24px;border:1px solid var(--line);border-radius:18px;min-height:330px;padding:48px 36px;display:flex;align-items:center;background:radial-gradient(circle at 80% 20%,#402414 0,#171a21 38%,#10131a 75%)}
+.hero h1{font-size:48px;max-width:650px;margin:0 0 12px}.hero p{max-width:650px;color:var(--muted);line-height:1.65}.btn{border:0;border-radius:8px;padding:11px 16px;font-weight:800;background:var(--accent);color:#111}.btn.secondary{background:var(--panel2);color:white;border:1px solid var(--line)}
+section{padding:30px 0}.sectionhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.sectionhead h2{margin:0;font-size:23px}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:17px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:.2s;cursor:pointer}.card:hover{transform:translateY(-3px);border-color:#465062}
+.poster{height:245px;background:linear-gradient(145deg,#242a35,#12151b);display:flex;align-items:center;justify-content:center;text-align:center;padding:14px;font-weight:800;color:#d9dee6;background-size:cover;background-position:center}
+.info{padding:13px}.title{font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meta{color:var(--muted);font-size:12px;margin-top:6px}
+.view{display:none}.view.active{display:block}.back{margin:24px 0;background:none;border:0;color:#cbd2dd}.watchgrid{display:grid;grid-template-columns:1fr 300px;gap:22px}.player{background:#000;border:1px solid var(--line);border-radius:12px;overflow:hidden;aspect-ratio:16/9}.player iframe,.player video{width:100%;height:100%;border:0}.watchinfo{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}.episodes{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.ep{background:var(--panel2);border:1px solid var(--line);color:white;padding:9px;border-radius:7px}.ep.active{background:var(--accent);color:#111}.admin{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:12px;color:var(--muted)}.field input,.field select,.field textarea{background:#0c0f15;color:white;border:1px solid var(--line);border-radius:8px;padding:11px;outline:none}.field textarea{min-height:90px;resize:vertical}.actions{display:flex;gap:10px;margin-top:15px;flex-wrap:wrap}.empty{border:1px dashed var(--line);padding:35px;text-align:center;color:var(--muted);border-radius:12px}
+footer{border-top:1px solid var(--line);margin-top:40px;padding:25px 0;color:var(--muted);font-size:13px}
+@media(max-width:800px){.navlinks{display:none}.search{width:160px}.hero{padding:35px 24px}.hero h1{font-size:35px}.watchgrid{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.episodes{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<header><div class="container nav">
+<button class="logo" onclick="showHome()">DonghuaHub</button>
+<nav class="navlinks"><button onclick="showHome()">Home</button><button onclick="filterGenre('All')">Donghua</button><button onclick="showAdmin()">Admin</button></nav>
+<input id="search" class="search" placeholder="Search donghua..." oninput="renderHome()">
+</div></header>
+
+<main class="container">
+<div id="homeView" class="view active">
+<section class="hero"><div><h1>Watch. Discover. Follow Donghua.</h1><p>A modern donghua catalog with searchable titles, episode guides and an on-site player for video sources that permit embedding.</p><button class="btn" onclick="document.getElementById('catalog').scrollIntoView()">Explore Donghua</button></div></section>
+<section id="catalog"><div class="sectionhead"><h2>All Donghua</h2><select id="genre" onchange="renderHome()" style="background:var(--panel2);color:white;border:1px solid var(--line);padding:8px;border-radius:7px"><option>All</option><option>Action</option><option>Fantasy</option><option>Romance</option><option>Cultivation</option></select></div><div id="grid" class="grid"></div></section>
+</div>
+
+<div id="watchView" class="view">
+<button class="back" onclick="showHome()">← Back to catalog</button>
+<div class="watchgrid"><div><div id="player" class="player"></div><h1 id="watchTitle" style="margin-bottom:6px"></h1><p id="watchDesc" style="color:var(--muted);line-height:1.6"></p><h2>Episodes</h2><div id="episodes" class="episodes"></div></div><aside class="watchinfo"><b>Series information</b><p id="watchMeta" class="meta"></p><p class="meta">Use only authorized video/embed sources. Some video hosts prevent third-party embedding.</p></aside></div>
+</div>
+
+<div id="adminView" class="view">
+<section><div class="sectionhead"><h2>Content Manager</h2><button class="btn secondary" onclick="showHome()">View site</button></div>
+<div class="admin"><p style="color:var(--muted)">Add a series or episode. This starter stores data in this browser. For a public multi-device admin panel, connect the same interface to a database/backend.</p>
+<div class="formgrid">
+<div class="field"><label>Donghua title</label><input id="fTitle" placeholder="e.g. Renegade Immortal"></div>
+<div class="field"><label>Episode number</label><input id="fEp" type="number" min="1" value="1"></div>
+<div class="field"><label>Genre</label><select id="fGenre"><option>Action</option><option>Fantasy</option><option>Romance</option><option>Cultivation</option></select></div>
+<div class="field"><label>Poster image URL (optional)</label><input id="fPoster" placeholder="https://..."></div>
+<div class="field full"><label>Video / embed URL</label><input id="fUrl" placeholder="Authorized YouTube embed URL, player URL, or direct .mp4 URL"></div>
+<div class="field full"><label>Description (optional)</label><textarea id="fDesc" placeholder="Short series description"></textarea></div>
+</div><div class="actions"><button class="btn" onclick="addEpisode()">Save episode</button><button class="btn secondary" onclick="clearAll()">Clear local demo data</button></div></div>
+<h2 style="margin-top:30px">Current entries</h2><div id="adminList"></div></section>
+</div>
+</main>
+<footer><div class="container">© 2026 DonghuaHub · Built for authorized video embeds and original/legally licensed content.</div></footer>
+
+<script>
+const starter=[
+{title:"Renegade Immortal",ep:1,genre:"Cultivation",poster:"",url:"https://www.youtube.com/embed/dQw4w9WgXcQ",desc:"A cultivation fantasy series. Replace this demo player URL with an authorized source."},
+{title:"Perfect World",ep:1,genre:"Fantasy",poster:"",url:"https://www.youtube.com/embed/dQw4w9WgXcQ",desc:"A fantasy donghua entry. Replace the demo URL with your authorized embed."},
+{title:"Battle Through the Heavens",ep:1,genre:"Action",poster:"",url:"https://www.youtube.com/embed/dQw4w9WgXcQ",desc:"An action/cultivation entry for demonstration."}
+];
+let data=JSON.parse(localStorage.getItem("dhPro")||"null")||starter;
+
+function save(){localStorage.setItem("dhPro",JSON.stringify(data))}
+function titles(){return [...new Set(data.map(x=>x.title))]}
+function renderHome(){
+ const q=document.getElementById("search").value.toLowerCase(), g=document.getElementById("genre").value;
+ const ts=titles().filter(t=>t.toLowerCase().includes(q)&& (g==="All"||data.find(x=>x.title===t).genre===g));
+ document.getElementById("grid").innerHTML=ts.length?ts.map(t=>{
+  let x=data.find(z=>z.title===t), n=data.filter(z=>z.title===t).length;
+  return `<article class="card" onclick="openSeries(${JSON.stringify(t)})"><div class="poster" style="${x.poster?'background-image:url('+escapeAttr(x.poster)+')':''}">${x.poster?'':t}</div><div class="info"><div class="title">${esc(t)}</div><div class="meta">${esc(x.genre)} · ${n} episode${n>1?'s':''}</div></div></article>`;
+ }).join(""):'<div class="empty" style="grid-column:1/-1">No matching donghua found.</div>';
+}
+function openSeries(t){
+ document.getElementById("homeView").classList.remove("active");document.getElementById("adminView").classList.remove("active");document.getElementById("watchView").classList.add("active");
+ let xs=data.filter(x=>x.title===t).sort((a,b)=>Number(a.ep)-Number(b.ep));document.getElementById("watchTitle").textContent=t+" — Episode "+xs[0].ep;document.getElementById("watchDesc").textContent=xs[0].desc||"";document.getElementById("watchMeta").textContent=xs[0].genre+" · "+xs.length+" episode"+(xs.length>1?"s":"");document.getElementById("episodes").innerHTML=xs.map((x,i)=>`<button class="ep ${i===0?'active':''}" onclick="play('${encodeURIComponent(x.url)}','${escAttr(t)}',${x.ep},this)">EP ${x.ep}</button>`).join("");play(encodeURIComponent(xs[0].url),t,xs[0].ep,document.querySelector(".ep"));
+ window.scrollTo(0,0);
+}
+function play(encoded,t,ep,btn){let url=decodeURIComponent(encoded),box=document.getElementById("player");document.getElementById("watchTitle").textContent=t+" — Episode "+ep;document.querySelectorAll(".ep").forEach(b=>b.classList.remove("active"));if(btn)btn.classList.add("active");
+ if(/youtube\.com\/embed|player|embed/i.test(url)) box.innerHTML=`<iframe src="${escAttr(url)}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+ else box.innerHTML=`<video controls playsinline src="${escAttr(url)}"></video>`;
+}
+function addEpisode(){
+ let title=v("fTitle"),ep=v("fEp"),genre=v("fGenre"),poster=v("fPoster"),url=v("fUrl"),desc=v("fDesc");
+ if(!title||!ep||!url)return alert("Please enter title, episode and video URL.");
+ data.push({title,ep:Number(ep),genre,poster,url,desc});save();renderHome();renderAdmin();
+ ["fTitle","fPoster","fUrl","fDesc"].forEach(id=>document.getElementById(id).value="");alert("Episode saved.");
+}
+function renderAdmin(){let el=document.getElementById("adminList");el.innerHTML=data.length?data.map((x,i)=>`<div class="admin" style="margin:8px 0;padding:12px;display:flex;justify-content:space-between;gap:12px;align-items:center"><span><b>${esc(x.title)}</b> · EP ${x.ep} · ${esc(x.genre)}</span><button class="btn secondary" onclick="removeEp(${i})">Delete</button></div>`).join(""):'<div class="empty">No entries.</div>'}
+function removeEp(i){data.splice(i,1);save();renderAdmin();renderHome()}
+function clearAll(){if(confirm("Remove locally saved entries and restore the demo catalog?")){data=starter.slice();save();renderHome();renderAdmin()}}
+function showHome(){document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));document.getElementById("homeView").classList.add("active");renderHome()}
+function showAdmin(){document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));document.getElementById("adminView").classList.add("active");renderAdmin();window.scrollTo(0,0)}
+function filterGenre(g){document.getElementById("genre").value=g;showHome()}
+function v(id){return document.getElementById(id).value.trim()}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+function escAttr(s){return esc(s).replace(/`/g,"&#96;")}
+function escAttrUrl(s){return encodeURIComponent(s)}
+renderHome();
+</script>
+</body>
+</html>
