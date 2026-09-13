@@ -1,105 +1,133 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="DonghuaHub — discover Chinese animation, episode guides and authorized video embeds.">
-<title>DonghuaHub — Watch & Discover Donghua</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DonghuaHub — Chinese Animation</title>
+<meta name="description" content="DonghuaHub — discover Chinese animation, browse genres, explore series and watch authorized video embeds.">
 <style>
-:root{--bg:#080a0f;--panel:#11151d;--panel2:#171c25;--line:#272e3a;--text:#f5f7fb;--muted:#9aa4b3;--accent:#ff6b18;--accent2:#ff9d4d}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}
-button,input,select,textarea{font:inherit}button{cursor:pointer}.container{max-width:1180px;margin:auto;padding:0 18px}
-header{position:sticky;top:0;z-index:20;background:rgba(8,10,15,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
-.nav{height:66px;display:flex;align-items:center;gap:24px}.logo{font-size:22px;font-weight:900;color:var(--accent);letter-spacing:-.5px}.navlinks{display:flex;gap:18px}.navlinks button{background:none;border:0;color:#cbd2dd}.search{margin-left:auto;width:260px;background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:10px 12px;color:white;outline:none}
-.hero{margin-top:24px;border:1px solid var(--line);border-radius:18px;min-height:330px;padding:48px 36px;display:flex;align-items:center;background:radial-gradient(circle at 80% 20%,#402414 0,#171a21 38%,#10131a 75%)}
-.hero h1{font-size:48px;max-width:650px;margin:0 0 12px}.hero p{max-width:650px;color:var(--muted);line-height:1.65}.btn{border:0;border-radius:8px;padding:11px 16px;font-weight:800;background:var(--accent);color:#111}.btn.secondary{background:var(--panel2);color:white;border:1px solid var(--line)}
-section{padding:30px 0}.sectionhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.sectionhead h2{margin:0;font-size:23px}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:17px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:.2s;cursor:pointer}.card:hover{transform:translateY(-3px);border-color:#465062}
-.poster{height:245px;background:linear-gradient(145deg,#242a35,#12151b);display:flex;align-items:center;justify-content:center;text-align:center;padding:14px;font-weight:800;color:#d9dee6;background-size:cover;background-position:center}
-.info{padding:13px}.title{font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meta{color:var(--muted);font-size:12px;margin-top:6px}
-.view{display:none}.view.active{display:block}.back{margin:24px 0;background:none;border:0;color:#cbd2dd}.watchgrid{display:grid;grid-template-columns:1fr 300px;gap:22px}.player{background:#000;border:1px solid var(--line);border-radius:12px;overflow:hidden;aspect-ratio:16/9}.player iframe,.player video{width:100%;height:100%;border:0}.watchinfo{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}.episodes{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.ep{background:var(--panel2);border:1px solid var(--line);color:white;padding:9px;border-radius:7px}.ep.active{background:var(--accent);color:#111}.admin{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:12px;color:var(--muted)}.field input,.field select,.field textarea{background:#0c0f15;color:white;border:1px solid var(--line);border-radius:8px;padding:11px;outline:none}.field textarea{min-height:90px;resize:vertical}.actions{display:flex;gap:10px;margin-top:15px;flex-wrap:wrap}.empty{border:1px dashed var(--line);padding:35px;text-align:center;color:var(--muted);border-radius:12px}
-footer{border-top:1px solid var(--line);margin-top:40px;padding:25px 0;color:var(--muted);font-size:13px}
-@media(max-width:800px){.navlinks{display:none}.search{width:160px}.hero{padding:35px 24px}.hero h1{font-size:35px}.watchgrid{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.episodes{grid-template-columns:repeat(4,1fr)}}
+:root{--bg:#080a0d;--panel:#11161d;--panel2:#171e27;--text:#f4f7fb;--muted:#a9b2bd;--line:#26303b;--blue:#1685e8;--blue2:#006bd6;--orange:#ff9f1a;--red:#ff3b30}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#07090c,#0b1016);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+a{text-decoration:none;color:inherit}button,input,select,textarea{font:inherit}
+.header{position:sticky;top:0;z-index:20;background:rgba(7,9,12,.96);backdrop-filter:blur(10px);border-bottom:1px solid #171d25}
+.nav{max-width:1200px;margin:auto;min-height:76px;display:flex;align-items:center;gap:18px;padding:10px 18px}
+.logo{font-weight:900;font-size:24px;letter-spacing:-.5px}.logo span{color:#ff9d16}.logo small{display:block;font-size:9px;color:#76818d;letter-spacing:1.8px}
+.menu{display:none;background:none;border:0;color:white;font-size:30px}.search{margin-left:auto;display:flex;gap:8px}.search input{width:240px;background:#121820;border:1px solid #303a46;color:white;border-radius:24px;padding:11px 15px;outline:none}.iconbtn{background:#121820;border:1px solid #303a46;color:white;border-radius:50%;width:42px;height:42px;cursor:pointer}
+.container{max-width:1200px;margin:auto;padding:24px 18px}.hero{border:1px solid #3a1f0b;background:radial-gradient(circle at 20% 10%,#20334a,#0d151d 45%,#211003);border-radius:14px;padding:30px;margin-bottom:30px}.hero h1{margin:0 0 10px;font-size:42px}.hero p{max-width:700px;color:#c7ced6;line-height:1.6}.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.chip{border:1px solid #36424f;background:#131a22;color:#dfe7ef;padding:8px 12px;border-radius:999px;cursor:pointer}.chip.active,.chip:hover{background:var(--blue);border-color:var(--blue)}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin:28px 0 14px}.section-head h2{margin:0;font-size:28px}.viewall{font-size:13px;color:#bfc8d3;border:1px solid var(--line);padding:8px 12px;border-radius:8px}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}.card{background:#11161d;border:1px solid #202934;border-radius:9px;overflow:hidden;transition:.18s;cursor:pointer}.card:hover{transform:translateY(-3px);border-color:#3a6d9d}.poster{aspect-ratio:2/3;background:linear-gradient(135deg,#19232e,#0b1016);position:relative;overflow:hidden}.poster img{width:100%;height:100%;object-fit:cover;display:block}.badge{position:absolute;top:9px;left:9px;background:#d92222;color:white;padding:4px 7px;border-radius:5px;font-size:11px;font-weight:800}.sub{position:absolute;bottom:8px;right:8px;background:#ffb329;color:#111;padding:4px 7px;border-radius:5px;font-size:11px;font-weight:800}.cardbody{padding:11px}.title{font-weight:750;line-height:1.35;min-height:38px}.meta{color:#8e99a5;font-size:12px;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.filterpanel{background:#0e141b;border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:22px}.genregrid{display:flex;flex-wrap:wrap;gap:8px}.genre{padding:8px 11px;border:1px solid #2b3642;background:#141b23;border-radius:7px;color:#cbd4dd;cursor:pointer;font-size:13px}.genre.active{background:#0876dc;border-color:#0876dc;color:white}
+.notice{border:1px solid #6b220e;background:#241006;color:#ffbd3d;border-radius:10px;padding:18px;line-height:1.55;margin:20px 0}
+.page{display:none}.page.active{display:block}
+.detail{display:grid;grid-template-columns:240px 1fr;gap:24px}.detailposter{border-radius:10px;overflow:hidden;background:#151c24;aspect-ratio:2/3}.detailposter img{width:100%;height:100%;object-fit:cover}.detail h1{margin-top:0;font-size:34px}.tags{display:flex;flex-wrap:wrap;gap:7px}.tag{font-size:12px;padding:6px 9px;border-radius:6px;background:#1b2631;color:#cdd6df}.episodes{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}.ep{background:#151d26;border:1px solid #293440;color:white;padding:10px;border-radius:7px;text-align:center;cursor:pointer}.ep:hover{background:#0876dc}
+.player{background:#000;border-radius:10px;overflow:hidden;aspect-ratio:16/9}.player iframe{width:100%;height:100%;border:0}.emptyplayer{height:100%;display:grid;place-items:center;color:#9da8b3;padding:30px;text-align:center}
+.admin{max-width:800px}.form{display:grid;gap:12px;background:#11161d;border:1px solid var(--line);border-radius:12px;padding:18px}.form input,.form textarea,.form select{background:#0b1016;color:white;border:1px solid #303b47;border-radius:8px;padding:11px}.form textarea{min-height:90px}.form button{background:var(--blue);color:white;border:0;border-radius:8px;padding:12px;font-weight:750;cursor:pointer}.small{font-size:12px;color:#8995a1}
+.footer{border-top:1px solid #202832;margin-top:50px;padding:30px 18px;color:#7f8a96;text-align:center;font-size:13px}
+@media(max-width:900px){.grid{grid-template-columns:repeat(4,1fr)}.episodes{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:650px){.nav{min-height:64px}.menu{display:block}.search input{width:150px}.hero{padding:22px}.hero h1{font-size:30px}.grid{grid-template-columns:repeat(2,1fr);gap:12px}.detail{grid-template-columns:130px 1fr;gap:16px}.detail h1{font-size:24px}.episodes{grid-template-columns:repeat(3,1fr)}.poster{aspect-ratio:2/2.9}}
 </style>
 </head>
 <body>
-<header><div class="container nav">
-<button class="logo" onclick="showHome()">DonghuaHub</button>
-<nav class="navlinks"><button onclick="showHome()">Home</button><button onclick="filterGenre('All')">Donghua</button><button onclick="showAdmin()">Admin</button></nav>
-<input id="search" class="search" placeholder="Search donghua..." oninput="renderHome()">
-</div></header>
+<header class="header"><nav class="nav">
+<button class="menu" onclick="scrollToGenres()" aria-label="Genres">☰</button>
+<a class="logo" href="#" onclick="goHome();return false">DONGHUA<span>HUB</span><small>CHINESE ANIMATION</small></a>
+<div class="search"><input id="search" placeholder="Search donghua..." oninput="render()"><button class="iconbtn" onclick="document.getElementById('search').focus()">⌕</button></div>
+</nav></header>
 
 <main class="container">
-<div id="homeView" class="view active">
-<section class="hero"><div><h1>Watch. Discover. Follow Donghua.</h1><p>A modern donghua catalog with searchable titles, episode guides and an on-site player for video sources that permit embedding.</p><button class="btn" onclick="document.getElementById('catalog').scrollIntoView()">Explore Donghua</button></div></section>
-<section id="catalog"><div class="sectionhead"><h2>All Donghua</h2><select id="genre" onchange="renderHome()" style="background:var(--panel2);color:white;border:1px solid var(--line);padding:8px;border-radius:7px"><option>All</option><option>Action</option><option>Fantasy</option><option>Romance</option><option>Cultivation</option></select></div><div id="grid" class="grid"></div></section>
+<section id="home" class="page active">
+<div class="hero">
+<h1>Discover Your Next Donghua</h1>
+<p>Browse Chinese animation by series, episode and genre. Add your own catalog entries and use authorized video/embed sources for playback.</p>
+<div class="chips">
+<button class="chip active" onclick="setGenre('All',this)">All</button>
+<button class="chip" onclick="setGenre('Action',this)">Action</button>
+<button class="chip" onclick="setGenre('Romance',this)">Romance</button>
+<button class="chip" onclick="setGenre('Cultivation',this)">Cultivation</button>
+<button class="chip" onclick="setGenre('Fantasy',this)">Fantasy</button>
+<button class="chip" onclick="setGenre('Martial Arts',this)">Martial Arts</button>
+</div>
 </div>
 
-<div id="watchView" class="view">
-<button class="back" onclick="showHome()">← Back to catalog</button>
-<div class="watchgrid"><div><div id="player" class="player"></div><h1 id="watchTitle" style="margin-bottom:6px"></h1><p id="watchDesc" style="color:var(--muted);line-height:1.6"></p><h2>Episodes</h2><div id="episodes" class="episodes"></div></div><aside class="watchinfo"><b>Series information</b><p id="watchMeta" class="meta"></p><p class="meta">Use only authorized video/embed sources. Some video hosts prevent third-party embedding.</p></aside></div>
-</div>
+<div class="notice"><b>Video sources:</b> This site is designed for videos you are authorized to embed or link to. It does not host or copy copyrighted videos itself.</div>
 
-<div id="adminView" class="view">
-<section><div class="sectionhead"><h2>Content Manager</h2><button class="btn secondary" onclick="showHome()">View site</button></div>
-<div class="admin"><p style="color:var(--muted)">Add a series or episode. This starter stores data in this browser. For a public multi-device admin panel, connect the same interface to a database/backend.</p>
-<div class="formgrid">
-<div class="field"><label>Donghua title</label><input id="fTitle" placeholder="e.g. Renegade Immortal"></div>
-<div class="field"><label>Episode number</label><input id="fEp" type="number" min="1" value="1"></div>
-<div class="field"><label>Genre</label><select id="fGenre"><option>Action</option><option>Fantasy</option><option>Romance</option><option>Cultivation</option></select></div>
-<div class="field"><label>Poster image URL (optional)</label><input id="fPoster" placeholder="https://..."></div>
-<div class="field full"><label>Video / embed URL</label><input id="fUrl" placeholder="Authorized YouTube embed URL, player URL, or direct .mp4 URL"></div>
-<div class="field full"><label>Description (optional)</label><textarea id="fDesc" placeholder="Short series description"></textarea></div>
-</div><div class="actions"><button class="btn" onclick="addEpisode()">Save episode</button><button class="btn secondary" onclick="clearAll()">Clear local demo data</button></div></div>
-<h2 style="margin-top:30px">Current entries</h2><div id="adminList"></div></section>
+<div class="section-head"><h2>🔥 Hot Series</h2><a class="viewall" href="#catalog" onclick="showCatalog()">VIEW ALL</a></div>
+<div id="hot" class="grid"></div>
+
+<div class="section-head"><h2>Latest Release</h2><a class="viewall" href="#catalog" onclick="showCatalog()">VIEW ALL</a></div>
+<div id="latest" class="grid"></div>
+
+<div id="genres" class="section-head"><h2>Browse by Genre</h2></div>
+<div class="filterpanel"><div id="genregrid" class="genregrid"></div></div>
+</section>
+
+<section id="catalog" class="page">
+<div class="section-head"><h2>All Donghua</h2></div>
+<div class="filterpanel"><div id="catalogGenres" class="genregrid"></div></div>
+<div id="catalogGrid" class="grid"></div>
+</section>
+
+<section id="detail" class="page">
+<div id="detailContent"></div>
+</section>
+
+<section id="watch" class="page">
+<div id="watchContent"></div>
+</section>
+
+<section id="admin" class="page">
+<div class="admin">
+<div class="section-head"><h2>Content Manager</h2></div>
+<div class="notice"><b>Demo mode:</b> entries are saved in this browser only. GitHub Pages cannot provide a shared database by itself. The next upgrade can connect this panel to a free-tier database and authentication.</div>
+<div class="form">
+<label>Series title<input id="aTitle" placeholder="Example: My Donghua"></label>
+<label>Poster image URL<input id="aPoster" placeholder="https://..."></label>
+<label>Genres (comma separated)<input id="aGenres" placeholder="Action, Fantasy, Cultivation"></label>
+<label>Description<textarea id="aDesc" placeholder="Series description"></textarea></label>
+<label>Episode number<input id="aEp" type="number" min="1" value="1"></label>
+<label>Authorized video/embed URL<input id="aVideo" placeholder="https://..."></label>
+<button onclick="addEntry()">Add / Save Episode</button>
+<p class="small">For playback, use an embed/video URL from a provider that permits embedding. Do not upload or embed unauthorized copyrighted copies.</p>
 </div>
+<div class="section-head"><h2>Your entries</h2></div>
+<div id="adminList"></div>
+</div>
+</section>
 </main>
-<footer><div class="container">© 2026 DonghuaHub · Built for authorized video embeds and original/legally licensed content.</div></footer>
+<footer class="footer">© 2026 DonghuaHub · Built for discovery and authorized video embeds · Mobile friendly</footer>
 
 <script>
-const starter=[
-{title:"Renegade Immortal",ep:1,genre:"Cultivation",poster:"",url:"https://www.youtube.com/embed/dQw4w9WgXcQ",desc:"A cultivation fantasy series. Replace this demo player URL with an authorized source."},
-{title:"Perfect World",ep:1,genre:"Fantasy",poster:"",url:"https://www.youtube.com/embed/dQw4w9WgXcQ",desc:"A fantasy donghua entry. Replace the demo URL with your authorized embed."},
-{title:"Battle Through the Heavens",ep:1,genre:"Action",poster:"",url:"https://www.youtube.com/embed/dQw4w9WgXcQ",desc:"An action/cultivation entry for demonstration."}
+const defaultItems=[
+ {id:1,title:"Battle Through the Heavens Season 5",ep:210,genres:["Action","Adventure","Cultivation","Fantasy","Martial Arts"],desc:"A cultivation fantasy adventure.",poster:"",video:""},
+ {id:2,title:"Beyond Time's Gaze",ep:39,genres:["Action","Fantasy","Cultivation","Drama"],desc:"A fantasy cultivation story.",poster:"",video:""},
+ {id:3,title:"Soul Land 2: The Unrivaled Tang Clan",ep:170,genres:["Action","Adventure","Fantasy","Martial Arts","Cultivation"],desc:"A martial arts fantasy adventure.",poster:"",video:""},
+ {id:4,title:"Renegade Immortal",ep:140,genres:["Action","Cultivation","Fantasy","Drama","Adventure"],desc:"An immortal cultivation journey.",poster:"",video:""},
+ {id:5,title:"Throne of Seal",ep:145,genres:["Action","Fantasy","Adventure","Romance"],desc:"A fantasy world of knights and demons.",poster:"",video:""},
+ {id:6,title:"Perfect World",ep:220,genres:["Action","Fantasy","Cultivation","Martial Arts"],desc:"A cultivation fantasy epic.",poster:"",video:""}
 ];
-let data=JSON.parse(localStorage.getItem("dhPro")||"null")||starter;
+const genres=["Action","Adventure","Comedy","Drama","Romance","Fantasy","Cultivation","Martial Arts","Xianxia","Wuxia","Historical","Harem","Reincarnation","Isekai","Time Travel","Sci-Fi","Mecha","Mystery","Thriller","Horror","Supernatural","School","Sports","Slice of Life","Music","Psychological","Military","War","Demons","Gods","Immortal","Urban","Shounen","Shoujo","Family","Historical Fantasy"];
+let items=JSON.parse(localStorage.getItem("dh_items")||"null")||defaultItems;
+let selectedGenre="All";
 
-function save(){localStorage.setItem("dhPro",JSON.stringify(data))}
-function titles(){return [...new Set(data.map(x=>x.title))]}
-function renderHome(){
- const q=document.getElementById("search").value.toLowerCase(), g=document.getElementById("genre").value;
- const ts=titles().filter(t=>t.toLowerCase().includes(q)&& (g==="All"||data.find(x=>x.title===t).genre===g));
- document.getElementById("grid").innerHTML=ts.length?ts.map(t=>{
-  let x=data.find(z=>z.title===t), n=data.filter(z=>z.title===t).length;
-  return `<article class="card" onclick="openSeries(${JSON.stringify(t)})"><div class="poster" style="${x.poster?'background-image:url('+escapeAttr(x.poster)+')':''}">${x.poster?'':t}</div><div class="info"><div class="title">${esc(t)}</div><div class="meta">${esc(x.genre)} · ${n} episode${n>1?'s':''}</div></div></article>`;
- }).join(""):'<div class="empty" style="grid-column:1/-1">No matching donghua found.</div>';
-}
-function openSeries(t){
- document.getElementById("homeView").classList.remove("active");document.getElementById("adminView").classList.remove("active");document.getElementById("watchView").classList.add("active");
- let xs=data.filter(x=>x.title===t).sort((a,b)=>Number(a.ep)-Number(b.ep));document.getElementById("watchTitle").textContent=t+" — Episode "+xs[0].ep;document.getElementById("watchDesc").textContent=xs[0].desc||"";document.getElementById("watchMeta").textContent=xs[0].genre+" · "+xs.length+" episode"+(xs.length>1?"s":"");document.getElementById("episodes").innerHTML=xs.map((x,i)=>`<button class="ep ${i===0?'active':''}" onclick="play('${encodeURIComponent(x.url)}','${escAttr(t)}',${x.ep},this)">EP ${x.ep}</button>`).join("");play(encodeURIComponent(xs[0].url),t,xs[0].ep,document.querySelector(".ep"));
- window.scrollTo(0,0);
-}
-function play(encoded,t,ep,btn){let url=decodeURIComponent(encoded),box=document.getElementById("player");document.getElementById("watchTitle").textContent=t+" — Episode "+ep;document.querySelectorAll(".ep").forEach(b=>b.classList.remove("active"));if(btn)btn.classList.add("active");
- if(/youtube\.com\/embed|player|embed/i.test(url)) box.innerHTML=`<iframe src="${escAttr(url)}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
- else box.innerHTML=`<video controls playsinline src="${escAttr(url)}"></video>`;
-}
-function addEpisode(){
- let title=v("fTitle"),ep=v("fEp"),genre=v("fGenre"),poster=v("fPoster"),url=v("fUrl"),desc=v("fDesc");
- if(!title||!ep||!url)return alert("Please enter title, episode and video URL.");
- data.push({title,ep:Number(ep),genre,poster,url,desc});save();renderHome();renderAdmin();
- ["fTitle","fPoster","fUrl","fDesc"].forEach(id=>document.getElementById(id).value="");alert("Episode saved.");
-}
-function renderAdmin(){let el=document.getElementById("adminList");el.innerHTML=data.length?data.map((x,i)=>`<div class="admin" style="margin:8px 0;padding:12px;display:flex;justify-content:space-between;gap:12px;align-items:center"><span><b>${esc(x.title)}</b> · EP ${x.ep} · ${esc(x.genre)}</span><button class="btn secondary" onclick="removeEp(${i})">Delete</button></div>`).join(""):'<div class="empty">No entries.</div>'}
-function removeEp(i){data.splice(i,1);save();renderAdmin();renderHome()}
-function clearAll(){if(confirm("Remove locally saved entries and restore the demo catalog?")){data=starter.slice();save();renderHome();renderAdmin()}}
-function showHome(){document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));document.getElementById("homeView").classList.add("active");renderHome()}
-function showAdmin(){document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));document.getElementById("adminView").classList.add("active");renderAdmin();window.scrollTo(0,0)}
-function filterGenre(g){document.getElementById("genre").value=g;showHome()}
-function v(id){return document.getElementById(id).value.trim()}
-function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
-function escAttr(s){return esc(s).replace(/`/g,"&#96;")}
-function escAttrUrl(s){return encodeURIComponent(s)}
-renderHome();
+function placeholder(title){return "data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="500" height="750"><defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#152536"/><stop offset="1" stop-color="#061018"/></linearGradient></defs><rect width="100%" height="100%" fill="url(#g)"/><text x="50%" y="46%" text-anchor="middle" fill="#eaf2f8" font-family="Arial" font-size="30" font-weight="700">${title.replace(/&/g,"&amp;").slice(0,22)}</text><text x="50%" y="52%" text-anchor="middle" fill="#718090" font-family="Arial" font-size="16">DONGHUAHUB</text></svg>`)}
+function imgSrc(x){return x.poster||placeholder(x.title)}
+function filtered(){let q=document.getElementById("search").value.toLowerCase().trim();return items.filter(x=>(selectedGenre==="All"||x.genres.includes(selectedGenre))&&(!q||x.title.toLowerCase().includes(q)||x.genres.join(" ").toLowerCase().includes(q)))}
+function card(x){return `<article class="card" onclick="openDetail(${x.id})"><div class="poster"><img src="${imgSrc(x)}" alt=""><span class="badge">🔥</span><span class="sub">Sub</span></div><div class="cardbody"><div class="title">${x.title}</div><div class="meta">Donghua · Episode ${x.ep}</div></div></article>`}
+function render(){let f=filtered();document.getElementById("latest").innerHTML=f.map(card).join("")||"<p class='small'>No titles found.</p>";document.getElementById("hot").innerHTML=f.slice(0,6).map(card).join("");document.getElementById("catalogGrid").innerHTML=f.map(card).join("")||"<p class='small'>No titles found.</p>";renderGenres();}
+function renderGenres(){let h=genres.map(g=>`<button class="genre ${selectedGenre===g?"active":""}" onclick="setGenre('${g}')">${g}</button>`).join("");document.getElementById("genregrid").innerHTML=h;document.getElementById("catalogGenres").innerHTML=`<button class="genre ${selectedGenre==="All"?"active":""}" onclick="setGenre('All')">All</button>`+h}
+function setGenre(g,el){selectedGenre=g;document.querySelectorAll(".chip").forEach(x=>x.classList.remove("active"));if(el)el.classList.add("active");render();showCatalog()}
+function showPage(id){document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));document.getElementById(id).classList.add("active");window.scrollTo({top:0,behavior:"smooth"})}
+function goHome(){showPage("home");render()}
+function showCatalog(){showPage("catalog");render()}
+function scrollToGenres(){document.getElementById("genres").scrollIntoView({behavior:"smooth"})}
+function openDetail(id){let x=items.find(a=>a.id===id);if(!x)return;let eps=items.filter(a=>a.title===x.title).sort((a,b)=>a.ep-b.ep);document.getElementById("detailContent").innerHTML=`<div class="detail"><div class="detailposter"><img src="${imgSrc(x)}" alt=""></div><div><h1>${x.title}</h1><div class="tags">${x.genres.map(g=>`<span class="tag">${g}</span>`).join("")}</div><p style="color:#aeb8c2;line-height:1.7">${x.desc||""}</p><h3>Episodes</h3><div class="episodes">${eps.map(e=>`<button class="ep" onclick="watch(${e.id})">EP ${e.ep}</button>`).join("")}</div></div></div>`;showPage("detail")}
+function watch(id){let x=items.find(a=>a.id===id);document.getElementById("watchContent").innerHTML=`<div class="section-head"><h2>${x.title} — Episode ${x.ep}</h2></div><div class="player">${x.video?`<iframe src="${x.video}" allowfullscreen loading="lazy"></iframe>`:`<div class="emptyplayer">No authorized video/embed URL has been added for this episode.<br><br>Use Content Manager to add one.</div>`}</div><p style="color:#8995a1">Episode ${x.ep} · ${x.genres.join(" · ")}</p>`;showPage("watch")}
+function addEntry(){let title=document.getElementById("aTitle").value.trim(), poster=document.getElementById("aPoster").value.trim(), gs=document.getElementById("aGenres").value.split(",").map(x=>x.trim()).filter(Boolean), desc=document.getElementById("aDesc").value.trim(), ep=Number(document.getElementById("aEp").value), video=document.getElementById("aVideo").value.trim();if(!title||!ep){alert("Enter a title and episode number.");return}items.push({id:Date.now(),title,poster,genres:gs.length?gs:["Other"],desc,ep,video});localStorage.setItem("dh_items",JSON.stringify(items));render();alert("Episode saved in this browser.");document.getElementById("aEp").value=ep+1}
+function admin(){showPage("admin");renderAdmin()}
+function renderAdmin(){document.getElementById("adminList").innerHTML=items.map(x=>`<div style="padding:10px 0;border-bottom:1px solid #27313b"><b>${x.title}</b> — EP ${x.ep}<button style="float:right;background:#3a1515;color:#ffaaa5;border:1px solid #6d2929;border-radius:6px;padding:5px 9px" onclick="del(${x.id})">Delete</button></div>`).join("")}
+function del(id){items=items.filter(x=>x.id!==id);localStorage.setItem("dh_items",JSON.stringify(items));render();renderAdmin()}
+document.querySelector(".logo").addEventListener("contextmenu",e=>{e.preventDefault();admin()});
+render();
 </script>
 </body>
 </html>
